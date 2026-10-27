@@ -1,43 +1,80 @@
-# 42 Video Effects for Claude
+# 42 Video Effects for Cursor
 
-Drop your video into Claude, type `/effects` and the name of an effect. That's the whole edit.
+Open this repo in Cursor, drop a talking-head clip into Agent, and type `/effects glass-widgets`. That's the whole edit.
 
 Made by [@vibha.in.progress](https://instagram.com/vibha.in.progress) 💛
 
-![All 42 effects](assets/preview.jpg)
+![All 42 effects](.cursor/skills/effects/assets/preview.jpg)
 
-## Install (one line)
+## Install in this project
 
-Open the Terminal app (or the terminal inside Claude Code) and paste:
+The skill Cursor loads is already in this repo at `.cursor/skills/effects/` (`SKILL.md`, plus `scripts/`, `assets/`, `fonts/`, `models/`, and `requirements.txt`). Paths inside the skill stay relative to that folder.
+
+1. Clone this repo and open the folder in Cursor:
 
 ```bash
-git clone https://github.com/Vibha-Ramprakash/claude-video-effects ~/.claude/skills/effects
+git clone https://github.com/imanish16/claude-video-effects.git
 ```
 
-On Windows (PowerShell), use `$HOME\.claude\skills\effects` instead of `~/.claude/skills/effects`.
-
-Then restart Claude Code. That's it.
-
-> Not sure how? Open Claude Code and paste: **"Install the skill from github.com/Vibha-Ramprakash/claude-video-effects into ~/.claude/skills/effects"**. Claude will do it for you.
+2. Leave the skill where it is. Cursor discovers project skills in `.cursor/skills/` ([Agent Skills](https://cursor.com/docs/skills)).
+3. Restart Cursor, or start a new Agent chat, so it picks up `effects`. Confirm it under **Customize → Skills**.
 
 ## Use it
 
-1. Open Claude Code (the app or the terminal).
-2. Drag your video into the chat.
-3. Type the effect you want:
+1. Open this repo in Cursor and start a new Agent chat.
+2. Drag your video into the chat. A vertical talking-head clip works best.
+3. Ask for the effect. Typing `/` and choosing `effects` runs the same skill:
 
 ```
+/effects glass-widgets
+/effects glass-widgets for the first 3 seconds
 /effects orbit from 3 to 6 seconds
 /effects spotlight when I say "kill the lights", with the word Claudit behind me
 /effects comment-box at the end, typing CLAUDE
-/effects glass-widgets for the first 3 seconds
 ```
 
-The very first time, Claude sets itself up (about 2 minutes). It needs `ffmpeg` and Python, and it installs them for you if they're missing.
+Plain language works too: "Add glass widgets to this clip."
 
-Claude checks a few frames first, fixes anything that covers your face, then renders `yourvideo_effects.mp4` right next to your original. Your audio stays as it was.
+The first time, the agent runs `bash scripts/setup.sh` from `.cursor/skills/effects/` (about 1 to 3 minutes). It needs `ffmpeg` and Python 3.10 or newer. If either is missing, setup prints `NEED_FFMPEG` or `NEED_PYTHON` and the agent installs them, then runs setup again.
 
-You can stack effects in one go: *"Add locked-on from 6 to 10s, then orbit from 10 to 13s, then a reject stamp on 'no'."*
+The agent checks a few frames first, fixes anything that covers your face, then renders `yourvideo_effects.mp4` next to your original. Your audio stays as it was.
+
+You can stack effects in one go: "Add locked-on from 6 to 10s, then orbit from 10 to 13s, then a reject stamp on 'no'."
+
+## Optional: install for every Cursor project
+
+Cursor also loads personal skills from `~/.cursor/skills/` on your machine. Copy the skill folder (the directory that contains `SKILL.md`), not the whole repository:
+
+```bash
+git clone https://github.com/imanish16/claude-video-effects.git
+mkdir -p ~/.cursor/skills
+rm -rf ~/.cursor/skills/effects
+cp -R claude-video-effects/.cursor/skills/effects ~/.cursor/skills/effects
+```
+
+On Windows (PowerShell):
+
+```powershell
+git clone https://github.com/imanish16/claude-video-effects.git
+New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.cursor\skills" | Out-Null
+Copy-Item -Recurse -Force .\claude-video-effects\.cursor\skills\effects "$env:USERPROFILE\.cursor\skills\effects"
+```
+
+Start a new Agent chat. That copy stays on your machine until you turn on **Settings → Agents → Sync Skills for Cloud Agents**. Only `~/.cursor/skills/` is synced. Cloud Agents that open this repo already get the project skill from `.cursor/skills/effects/` and do not need the global copy.
+
+`~/.agents/skills/` is also read locally. Prefer `~/.cursor/skills/`: that is the directory Cursor documents and syncs.
+
+## Still using Claude Code?
+
+Claude Code reads `~/.claude/skills/effects/SKILL.md`. The skill files in this repo are `.cursor/skills/effects/`. Point the old path at that folder instead of cloning the repository root on top of it:
+
+```bash
+git clone https://github.com/imanish16/claude-video-effects.git
+mkdir -p ~/.claude/skills
+ln -s "$(pwd)/claude-video-effects/.cursor/skills/effects" ~/.claude/skills/effects
+```
+
+On Windows, copy the folder to `$HOME\.claude\skills\effects`. Then restart Claude Code.
 
 ## The 42 effects
 
@@ -92,19 +129,19 @@ Every effect follows your face. Anything that would cover your face goes behind 
 
 **Tips**
 - Vertical phone videos with you in frame work best.
-- Say the timing in plain words ("when I say 'watch'"). Claude finds the exact second.
-- Want your own reels in `orbit`, `noise`, `phone-fan` or `profile-wall`? Give Claude a folder of screenshots.
-- Charts, counters and headlines should use your real numbers. Tell Claude what they are.
+- Say the timing in plain words ("when I say 'watch'"). The agent finds the exact second.
+- Want your own reels in `orbit`, `noise`, `phone-fan` or `profile-wall`? Give the agent a folder of screenshots.
+- Charts, counters and headlines should use your real numbers. Tell the agent what they are.
 - It renders in 1080p. Ask for 4K if you want it (slower).
 
 ## Honest notes
-- These are **starter versions**. They won't match the exact edit in my reel, which also has sound design and hand-tuned timing.
+- These are **starter versions**. They won't match the exact edit in the original reel, which also has sound design and hand-tuned timing.
 - It drafts, you approve. Watch the result before you post.
 - No sounds or captions are added. Add those in CapCut.
-- My full edit style is coming later. Follow [@vibha.in.progress](https://instagram.com/vibha.in.progress) to hear first.
+- The full edit style is coming later. Follow [@vibha.in.progress](https://instagram.com/vibha.in.progress) to hear first.
 
 ## If something goes wrong
-Just tell Claude what you see ("the word covers my face", "it's too fast"). It will fix the plan and render again.
+Tell the agent what you see ("the word covers my face", "it's too fast"). It will fix the plan and render again.
 
 ## Credits
-Face tracking: [OpenCV YuNet](https://github.com/opencv/opencv_zoo) (MIT). Person cut-out: [MediaPipe Selfie Segmenter](https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter) (Apache 2.0). Fonts: Archivo Black, Instrument Serif, Space Mono, Inter, Anton, Montserrat (SIL OFL) and Permanent Marker (Apache 2.0); licences are in `fonts/`. Everything else: MIT, see `LICENSE`.
+Face tracking: [OpenCV YuNet](https://github.com/opencv/opencv_zoo) (MIT). Person cut-out: [MediaPipe Selfie Segmenter](https://ai.google.dev/edge/mediapipe/solutions/vision/image_segmenter) (Apache 2.0). Fonts: Archivo Black, Instrument Serif, Space Mono, Inter, Anton, Montserrat (SIL OFL) and Permanent Marker (Apache 2.0); licences are in `.cursor/skills/effects/fonts/`. Everything else: MIT, see `LICENSE`.

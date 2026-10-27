@@ -2,4 +2,4 @@
 __pycache__/
 *.pyc
 .DS_Store
-scripts/fx_private.py
+.cursor/skills/effects/scripts/fx_private.py

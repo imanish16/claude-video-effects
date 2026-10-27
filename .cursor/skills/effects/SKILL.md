@@ -1,13 +1,13 @@
 ---
 name: effects
-description: Add any of 42 video effects to a talking-head video (orbit, spotlight, glass widgets, timeline, checklist, headline wall, comment box, phone fan, liquid glass graph, match-cut, iPhone toggles, LED sign and more). Effects track the speaker's face and can sit behind their head. Use when the user types /effects, names one of the effects, or asks to add an effect, zoom, grade, sticker or animation to their video.
+description: Add any of 42 video effects to a talking-head video (orbit, spotlight, glass widgets, timeline, checklist, headline wall, comment box, phone fan, liquid glass graph, match-cut, iPhone toggles, LED sign and more). Effects track the speaker's face and can sit behind their head. Use when the user types /effects, names one of the effects, or asks to add an effect, zoom, grade, sticker or animation to their video in Cursor Agent.
 ---
 
 # Effects: 42 starter video effects (by @vibha.in.progress)
 
-The user is usually not technical. Keep replies short and friendly, do the work for them, and never ask them to run commands themselves.
+You are running as Cursor Agent. The user invokes this skill with `/effects` (for example `/effects glass-widgets`) or by describing the effect in plain language. They are usually not technical. Keep replies short and friendly, do the work for them, and never ask them to run commands themselves.
 
-All paths below are relative to this skill's folder (the folder this SKILL.md is in). Use its absolute path in commands.
+All paths below are relative to this skill's folder (the folder this SKILL.md is in). In this repository that folder is `.cursor/skills/effects/`. A machine-wide copy is `~/.cursor/skills/effects/`. Use that folder's absolute path in commands. Do not look for `scripts/`, `fonts/`, or `models/` at the repository root.
 
 ## 1. First run: set up (once)
 Run `bash scripts/setup.sh`. It prints `READY` when done (the first time takes 1 to 3 minutes).
@@ -16,8 +16,8 @@ Run `bash scripts/setup.sh`. It prints `READY` when done (the first time takes 1
 - On Windows, the Python is at `.venv\Scripts\python.exe` instead of `.venv/bin/python`.
 
 ## 2. Get the video and the effect
-- Video: the user drags the file into the chat, or gives a path. A vertical phone video works best.
-- Effect: from `/effects <name>`, or from what they describe. Match their words to the table below. Unsure? Show them the list.
+- Video: the user drags the file into the Cursor Agent chat, or gives a path. A vertical phone video works best.
+- Effect: from `/effects <name>` (they can type `/` and choose `effects`), or from what they describe. Match their words to the table below. Unsure? Show them the list.
 
 ## 3. Find the timing
 - If they say "on the word X" or "when I say ...", run `.venv/bin/python scripts/words.py <video>` and use those times.
